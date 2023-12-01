@@ -30,17 +30,34 @@
 		<v-col cols="4">
 				<v-card style="padding: 10px; display: grid; gap: 10px; justify-items: center; height: 100%; align-content: center;" elevation="0">
 					<v-card-title style="font-size: 45px;">
-						Entrar
+						Criar Conta
 					</v-card-title>
 						<v-form style="width: 55%;">
-							<v-text-field v-model="email" label="Digite seu email" variant="outlined" hide-details prepend-inner-icon="mdi-email-outline" class="mb-2" style="height: 80px;"></v-text-field>
+                            <div style="display: flex;">
+                                <v-text-field v-model="fname" label="Digite seu nome" variant="outlined" hide-details style="height: 80px; width: 40%;"></v-text-field>
+                                <v-text-field v-model="lname" label="Digite seu sobrenome" variant="outlined" hide-details style="height: 80px; width: 40%; margin-left: 5px;"></v-text-field>
+                            </div>
+							<v-text-field v-model="email" label="Digite seu email" variant="outlined" hide-details style="height: 80px;"></v-text-field>
+                            <v-text-field v-model="celular" label="Digite seu celular" variant="outlined" hide-details style="height: 80px;"></v-text-field>
 							<v-text-field
 							style="height: 80px;"
 							variant="outlined"
 							label="Digite sua senha"
 							hide-details
-							prepend-inner-icon="mdi-key-outline"
 								v-model="password"
+								:append-inner-icon="show1 ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
+								:rules="[rules.required, rules.min]"
+								:type="show1 ? 'text' : 'password'"
+								name="input-10-1"
+								hint="Ao menos 8 caracteres"
+								@click:append="show1 = !show1"
+							></v-text-field>
+                            <v-text-field
+							style="height: 80px;"
+							variant="outlined"
+							label="Confirme sua senha"
+							hide-details
+								v-model="confirmPassword"
 								:append-inner-icon="show1 ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
 								:rules="[rules.required, rules.min]"
 								:type="show1 ? 'text' : 'password'"
@@ -61,13 +78,13 @@
 						width="49%"
 						v-on:click="login"
 						>
-							<span>Entrar</span>
+							<span>Registrar</span>
 						</v-btn>
 						<v-btn
 						width="49%"
 						href="./register"
 						>
-							<span>Registrar</span>
+							<span>Voltar</span>
 						</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -86,13 +103,19 @@
 			return {
 				qrImg: '',
 				show1: false,
-				email: '',
-				password: '',
+                confirmPassword: '',
 				rules: {
 					required: (value) => !!value || 'Required.',
 					min: (v) => v.length >= 8 || 'Min 8 characters',
 					emailMatch: () => ('The email and password you entered don\'t match'),
 				},
+                user: {
+                    fname: '',
+                    lname: '',
+                    email: '',
+                    celular: '',
+                    password: ''
+                }
 			}
 		},
 		methods: {
