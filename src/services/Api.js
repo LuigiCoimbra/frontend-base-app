@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-  baseURL: 'http://localhost:8055',
+  baseURL: 'http://riccidiogo.com.br:8056/',
 });
 
 export default Api

@@ -14,16 +14,22 @@ export default{
         localStorage.removeItem("token")
       });
     },
+    register(credential) {
+      return Api.post('/users', credential)
+    },
     addBot(bot_info) {
-      return Api.post('/items/bot_list', bot_info, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
+      return Api.post('/items/bots', bot_info, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
     },
     editBot(bot_info) {
-      return Api.patch(`/items/bot_list/${bot_info.id}`, bot_info, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
+      return Api.patch(`/items/bots/${bot_info.id}`, bot_info, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
     },
     listBot() {
-      return Api.get('/items/bot_list', {'Authorization': `Bearer ${localStorage.getItem('token')}`});
+      return Api.get('/items/bots/?fields=*,bot_type.type_name', {'Authorization': `Bearer ${localStorage.getItem('token')}`});
     },
     deleteBot(id) {
-      return Api.delete(`/items/bot_list/${id}`, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
+      return Api.delete(`/items/bots/${id}`, {'Authorization': `Bearer ${localStorage.getItem('token')}`});
+    },
+    typeBot() {
+      return Api.get('/items/bot_types', {'Authorization': `Bearer ${localStorage.getItem('token')}`})
     }
 }

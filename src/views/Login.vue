@@ -97,16 +97,12 @@
 		},
 		methods: {
 			async login() {
-				const res = await services.login()
-				console.log(res.status)
-				if (res.status === 203) {
-					this.qrImg = res.data
-					// setInterval(services.login, 5000)
-					console.log(res)
-				}
+				const res = await services.login({
+					email: this.email,
+					password: this.password
+				})
 				if (res.status === 200) {
-					alert('Autenticado')
-					console.log(res)
+					this.$router.push('Bots') 
 				}
 			},
 		}

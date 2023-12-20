@@ -76,13 +76,13 @@
 							variant="outlined"
 							color="#8934eb"
 						width="49%"
-						v-on:click="login"
+						v-on:click="register"
 						>
 							<span>Registrar</span>
 						</v-btn>
 						<v-btn
 						width="49%"
-						href="./register"
+						href="./login"
 						>
 							<span>Voltar</span>
 						</v-btn>
@@ -109,28 +109,24 @@
 					min: (v) => v.length >= 8 || 'Min 8 characters',
 					emailMatch: () => ('The email and password you entered don\'t match'),
 				},
-                user: {
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    celular: '',
-                    password: ''
-                }
+				fname: '',
+				lname: '',
+				email: '',
+				celular: '',
+				password: ''
 			}
 		},
 		methods: {
-			async login() {
-				const res = await services.login()
+			async register() {
+				const res = await services.register({
+					first_name: this.fname,
+					last_name: this.lname,
+					telefone: this.celular,
+					email: this.email,
+					password: this.password
+				})
 				console.log(res.status)
-				if (res.status === 203) {
-					this.qrImg = res.data
-					// setInterval(services.login, 5000)
-					console.log(res)
-				}
-				if (res.status === 200) {
-					alert('Autenticado')
-					console.log(res)
-				}
+				this.$router.push('Login')
 			},
 		}
 	}

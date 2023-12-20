@@ -13,7 +13,8 @@
                       <th class="text-left">Id</th>
                       <th class="text-left">Nome</th>
                       <th class="text-left">Tipo</th>
-                      <th class="text-left">Criado em</th>
+                      <th class="text-left">Status</th>
+                      <th class="text-left">Estado</th>
                       <th class="text-left">Ações</th>
                   </tr>
               </thead>
@@ -25,7 +26,15 @@
                       <td>{{ item.id }}</td>
                       <td>{{ item.nome_bot }}</td>
                       <td>{{ item.tipo_bot }}</td>
-                      <td>{{ formatDate(item.created_at) }}</td>
+                      <td>{{ item.status_bot }}</td>
+                      <td>
+                        <v-switch
+                          v-model="model"
+                          hide-details
+                          inset
+                          color="primary"
+                        ></v-switch>
+                      </td>
                       <td>
                         <v-btn class="mr-1" density="compact" icon="mdi-square-edit-outline" @click="dialog = true; name_bot = item.nome_bot; type_bot = item.tipo_bot; id = item.id"></v-btn>
                         <v-btn density="compact" icon="mdi-delete-outline" @click="dialogDelete = true; id = item.id"></v-btn>
@@ -41,7 +50,13 @@
             <v-card-text>
               <v-form>
                 <v-text-field v-model="name_bot" label="Nome do Bot" color="#940CC4" outlined hide-details prepend-inner-icon="mdi-robot-outline" class="mb-5 pl-2" style="background: #FFF; border-radius: 50px;"></v-text-field>
-                <v-text-field v-model="type_bot" label="Tipo do Bot" color="#940CC4" outlined hide-details prepend-inner-icon="mdi-robot-outline" class="mb-5 pl-2" style="background: #FFF; border-radius: 50px;"></v-text-field>
+                <v-select
+                  label="Select"
+                  v-model="type_bot"
+                  :items="bot_types"
+                  item-title="type_name"
+                  item-value="type_id"
+                ></v-select>
               </v-form>
             </v-card-text>
             <v-card-actions v-if="this.id === ''">
@@ -96,14 +111,16 @@ export default {
       type_bot: '',
       dialog: false,
       dialogDelete: false,
-      bot_list: []
+      bot_list: [],
+      bot_types: []
     }
   },
   methods: {
     async addBot() {
       const res = await services.addBot({
         bot_name: this.name_bot,
-        bot_type: this.type_bot
+        bot_type: this.type_bot,
+        bot_status: 'created'
       })
       if (res.status === 200) {
         alert('Bot criado com Sucesso');
@@ -136,9 +153,10 @@ export default {
         this.bot_list = res.data.data.map((item) => ({
           id: item.id,
           nome_bot: item.bot_name,
-          tipo_bot: item.bot_type,
-          created_at: item.date_created,
+          tipo_bot: item.bot_type.type_name,
+          status_bot: item.bot_status,
         }));
+        console.log(this.bot_list)
       } else {
         alert('Erro ao carregar dados');
       }
@@ -153,17 +171,30 @@ export default {
         alert('Informações incorretas');
       }
     },
-    formatDate(date) {
-      let year = date.slice(0,4)
-      let month = date.slice(5,7)
-      let day = date.slice(8,10)
-      let time = date.slice(11,16)
-      const dateFormated = day + '/' + month + '/' + year + ' ' + time
-      return dateFormated
-    }
+    async typeBot() {
+      const res = await services.typeBot()
+      if (res.data.data) {
+        this.bot_types = res.data.data.map((item) => ({
+          type_id: item.id,
+          type_name: item.type_name,
+        }));
+        console.log(this.bot_types)
+      } else {
+        alert('Erro ao carregar dados');
+      }
+    },
+    // formatDate(date) {
+    //   let year = date.slice(0,4)
+    //   let month = date.slice(5,7)
+    //   let day = date.slice(8,10)
+    //   let time = date.slice(11,16)
+    //   const dateFormated = day + '/' + month + '/' + year + ' ' + time
+    //   return dateFormated
+    // },
   },
   mounted () {
     this.listBot()
+    this.typeBot()
   }
 }
 </script>
