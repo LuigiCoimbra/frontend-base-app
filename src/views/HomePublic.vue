@@ -3,17 +3,25 @@
 	padding: 0 !important;
 }
 .gradient {
-  width: 100%;
-  height:100vh;
-  display: flex;
+  display: flex !important;
   justify-content: center;
 	align-items: center;
 }
 
 .gradient {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab) !important;
+    background-size: 400% 400% !important;
+    animation: gradient 15s ease infinite !important;
+}
+.v-img {
+  mix-blend-mode: multiply;
+  border-radius: 10px;
+}
+
+img {
+    padding: 10px;
 }
 
 @keyframes gradient {
@@ -29,9 +37,8 @@
 }
 </style>
 <template>
-    <div class="gradient">
-        <v-card width="75%">
+    <v-card class="gradient">
+            <v-img width="20%" src="@/assets/brain.png"></v-img>
             <v-card-title>Em Breve</v-card-title>
         </v-card>
-    </div>
 </template>

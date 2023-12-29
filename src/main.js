@@ -1,3 +1,4 @@
+import { createPinia } from 'pinia'
 /**
  * main.js
  *
@@ -6,6 +7,8 @@
 
 // Components
 import App from './App.vue'
+const pinia = createPinia()
+
 
 // Composables
 import { createApp } from 'vue'
@@ -16,5 +19,5 @@ import { registerPlugins } from '@/plugins'
 const app = createApp(App)
 
 registerPlugins(app)
-
+app.use(pinia)
 app.mount('#app')

@@ -33,14 +33,14 @@
 						Entrar
 					</v-card-title>
 						<v-form style="width: 55%;">
-							<v-text-field v-model="email" label="Digite seu email" variant="outlined" hide-details prepend-inner-icon="mdi-email-outline" class="mb-2" style="height: 80px;"></v-text-field>
+							<v-text-field v-model="user.email" label="Digite seu email" variant="outlined" hide-details prepend-inner-icon="mdi-email-outline" class="mb-2" style="height: 80px;"></v-text-field>
 							<v-text-field
 							style="height: 80px;"
 							variant="outlined"
 							label="Digite sua senha"
 							hide-details
 							prepend-inner-icon="mdi-key-outline"
-								v-model="password"
+								v-model="user.password"
 								:append-inner-icon="show1 ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
 								:rules="[rules.required, rules.min]"
 								:type="show1 ? 'text' : 'password'"
@@ -79,15 +79,19 @@
 </template>
   
 <script>
-	import services from '../services/Services';
+	// import services from '../services/Services';
+	import { useAuthStore } from "@/store/auth";
+	import { useRouter } from 'vue-router'
 
 	export default {
 		data () {
 			return {
 				qrImg: '',
 				show1: false,
-				email: '',
-				password: '',
+				user: {
+					email: '',
+					password: '',
+				},
 				rules: {
 					required: (value) => !!value || 'Required.',
 					min: (v) => v.length >= 8 || 'Min 8 characters',
@@ -95,16 +99,23 @@
 				},
 			}
 		},
+		setup() {
+			const authStore = useAuthStore();
+			const router = useRouter();
+
+			// expose to template and other options API hooks
+			return {
+				authStore,
+				router
+			}
+		},
 		methods: {
-			async login() {
-				const res = await services.login({
-					email: this.email,
-					password: this.password
-				})
-				if (res.status === 200) {
-					this.$router.push('Bots') 
-				}
-			},
+			login() {
+				this.authStore
+					.login(this.user)
+					.then((_response) => this.router.push("/bots"))
+					.catch((error) => console.log("API error", error));
+			}
 		}
 	}
 </script>

@@ -111,6 +111,7 @@ export default {
       type_bot: '',
       dialog: false,
       dialogDelete: false,
+      model: false,
       bot_list: [],
       bot_types: []
     }
