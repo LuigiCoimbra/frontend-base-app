@@ -67,7 +67,7 @@
                   variant="outlined"
                   color="#8934eb"
                   width="65%"
-                  v-on:click="editBot"
+                  v-on:click="editClientes"
                   >
                     <span>Editar</span>
                   </v-btn>
@@ -82,7 +82,7 @@
                   <v-btn
                   variant="flat"
                   color="red"
-                  v-on:click="deleteBot">Deletar</v-btn>
+                  v-on:click="deleteClientes">Deletar</v-btn>
                   <v-btn
                   variant="outlined"
                   color="#8934eb"
@@ -176,10 +176,10 @@
           }
         },
         async deleteContact() {
-          const res = await services.deleteBot(this.id)
+          const res = await services.deleteClientes(this.id)
           if (res.status === 204) {
             alert('Bot deletado com Sucesso');
-            this.listBot()
+            this.listClientes()
             this.dialogDelete = false
           } else {
             alert('Informações incorretas');

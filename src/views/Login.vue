@@ -65,7 +65,7 @@
 						</v-btn>
 						<v-btn
 						width="49%"
-						href="./register"
+						v-on:click="$router.push('Register')"
 						>
 							<span>Registrar</span>
 						</v-btn>
@@ -82,6 +82,7 @@
 	// import services from '../services/Services';
 	import { useAuthStore } from "@/store/auth";
 	import { useRouter } from 'vue-router'
+import Register from "./Register.vue";
 
 	export default {
 		data () {

@@ -14,9 +14,11 @@ export const useAuthStore = defineStore({
             email: credential.email,
             password: credential.password
         })
+        console.log(res)
         if (res.status === 200) {
             this.user = res
             this.token = res.data.data.access_token
+            console.log(this.user)
             localStorage.setItem('user', JSON.stringify(this.user))
             localStorage.setItem('token', this.token)
             console.log(localStorage.getItem('token'))

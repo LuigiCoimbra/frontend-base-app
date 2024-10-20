@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-  baseURL: 'http://riccidiogo.com.br:8056/',
+  baseURL: 'https://admin.interazap.com.br/',
 });
 Api.interceptors.response.use(function (response) {
   // Any status code that lie within the range of 2xx cause this function to trigger
@@ -20,16 +20,16 @@ Api.interceptors.response.use(function (response) {
     })
     .catch((err) => {
       console.log("err--", err)
-      if (err.response.status == 401) {
-        window.location.href = '/login'
-      }
+      // if (err.response.status == 401) {
+      //   window.location.href = '/login'
+      // }
     }) 
   }
-  if(error.response.status == 403) {
-    console.log(error.response.status)
-    Api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return window.location.reload();
-  }
+  // if(error.response.status == 403) {
+  //   console.log(error.response.status)
+  //   Api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+  //   return window.location.reload();
+  // }
   return Promise.reject(error);
 });
 

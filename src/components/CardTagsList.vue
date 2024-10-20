@@ -56,7 +56,7 @@
                   variant="outlined"
                   color="#8934eb"
                   width="65%"
-                  v-on:click="editBot"
+                  v-on:click="editClientes"
                   >
                     <span>Editar</span>
                   </v-btn>
@@ -71,7 +71,7 @@
                   <v-btn
                   variant="flat"
                   color="red"
-                  v-on:click="deleteBot">Deletar</v-btn>
+                  v-on:click="deleteClientes">Deletar</v-btn>
                   <v-btn
                   variant="outlined"
                   color="#8934eb"
@@ -112,15 +112,15 @@
             alert('Informações incorretas');
           }
         },
-        async editBot() {
-          const res = await services.editBot({
+        async editClientes() {
+          const res = await services.editClientes({
             id: this.id,
             bot_name: this.name_bot,
             bot_type: this.type_bot
           })
           if (res.status === 200) {
             alert('Etiqueta alterada com Sucesso');
-            this.listBot()
+            this.listClientes()
             this.dialog = false
             this.id = ''
             this.name_bot = ''
@@ -142,11 +142,11 @@
             alert('Erro ao carregar dados');
           }
         },
-        async deleteBot() {
-          const res = await services.deleteBot(this.id)
+        async deleteClientes() {
+          const res = await services.deleteClientes(this.id)
           if (res.status === 204) {
             alert('Etiqueta deletada com Sucesso');
-            this.listBot()
+            this.listClientes()
             this.dialogDelete = false
           } else {
             alert('Informações incorretas');

@@ -38,7 +38,7 @@
                                 <v-text-field v-model="lname" label="Digite seu sobrenome" variant="outlined" hide-details style="height: 80px; width: 40%; margin-left: 5px;"></v-text-field>
                             </div>
 							<v-text-field v-model="email" label="Digite seu email" variant="outlined" hide-details style="height: 80px;"></v-text-field>
-                            <v-text-field v-model="celular" label="Digite seu celular" variant="outlined" hide-details style="height: 80px;"></v-text-field>
+                            <!-- <v-text-field v-model="celular" label="Digite seu celular" variant="outlined" hide-details style="height: 80px;"></v-text-field> -->
 							<v-text-field
 							style="height: 80px;"
 							variant="outlined"
@@ -112,7 +112,7 @@
 				fname: '',
 				lname: '',
 				email: '',
-				celular: '',
+				// celular: '',
 				password: ''
 			}
 		},
@@ -121,7 +121,7 @@
 				const res = await services.register({
 					first_name: this.fname,
 					last_name: this.lname,
-					telefone: this.celular,
+					// telphone: this.celular,
 					email: this.email,
 					password: this.password
 				})

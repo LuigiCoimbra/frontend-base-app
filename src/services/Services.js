@@ -7,8 +7,8 @@ export default{
       delete Api.defaults.headers.common["Authorization"];
       return Api.post('/auth/login', credential)
       .then(response => {
-        const token = response.data.data.access_token;
-        console.log(token)
+        // const token = response.data.data.access_token;
+        // console.log(token)
         Api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
         // localStorage.setItem("token", token)
         return response
@@ -21,20 +21,20 @@ export default{
       return Api.get('/users/me')
     },
     register(credential) {
-      return Api.post('/users', credential)
+      return Api.post('/users/register', credential)
     },
-    addBot(bot_info) {
-      return Api.post('/items/bots', bot_info);
+    addCliente(cliente_info) {
+      return Api.post('/items/Clientes', cliente_info);
     },
-    editBot(bot_info) {
-      return Api.patch(`/items/bots/${bot_info.id}`, bot_info);
+    editClientes(cliente_info) {
+      return Api.patch(`/items/Clientes/${cliente_info.id}`, cliente_info);
     },
-    listBot() {
+    listClientes() {
       // Api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-      return Api.get('/items/bots/?fields=*,bot_type.type_name');
+      return Api.get('/items/Clientes');
     },
-    deleteBot(id) {
-      return Api.delete(`/items/bots/${id}`);
+    deleteClientes(id) {
+      return Api.delete(`/items/Clientes/${id}`);
     },
     addContact(contacts_info) {
       return Api.post('/items/contacts', contacts_info);
@@ -57,7 +57,7 @@ export default{
       return Api.delete(`/items/contacts/${id}`);
     },
     typeBot() {
-      return Api.get('/items/bot_types')
+      return Api.get('/items/Empresas')
     },
     listTags() {
       return Api.get('/items/etiqueta')
