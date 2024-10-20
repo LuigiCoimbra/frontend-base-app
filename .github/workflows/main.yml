@@ -33,4 +33,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: sa-east-1  # Região do seu bucket S3
-        SOURCE_DIR: /  # Diretório de saída após build (altere conforme seu projeto)
+        SOURCE_DIR: dist  # Diretório de saída após build (altere conforme seu projeto)
